@@ -41,12 +41,16 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\MazeController.cs" />
-     <Compile Include="Assets\Scripts\MazeDataScriptableObject.cs" />
+     <Compile Include="Assets\Scripts\Maze\MazeController.cs" />
+     <Compile Include="Assets\Scripts\Maze\MazeData.cs" />
      <Compile Include="Assets\Scripts\UI\UIController.cs" />
-     <Compile Include="Assets\Scripts\MazeCell.cs" />
-     <Compile Include="Assets\Scripts\Algorithms\IAlgorithm.cs" />
+     <Compile Include="Assets\Scripts\Maze\MazeCell.cs" />
+     <Compile Include="Assets\Scripts\Algorithms\MazeAlgorithmBase.cs" />
      <Compile Include="Assets\Scripts\Algorithms\BinaryTree.cs" />
+     <Compile Include="Assets\Scripts\Algorithms\DepthFirstSearch.cs" />
+     <Compile Include="Assets\Scripts\Maze\MazeGenerator.cs" />
+     <Compile Include="Assets\Scripts\UI\UIControllerLogic.cs" />
+     <Compile Include="Assets\Scripts\CameraController.cs" />
      <Folder Include="Assets" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
@@ -55,6 +59,8 @@
      <Folder Include="Assets\TextMesh Pro\Resources\Sprite Assets" />
      <Folder Include="Assets\Scripts\Algorithms" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+     <Folder Include="Assets\Scripts\Maze\ScriptableObjects" />
+     <Folder Include="Assets\Scripts\Maze" />
      <Folder Include="Assets\TextMesh Pro\Resources\Fonts &amp; Materials" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
@@ -75,7 +81,6 @@
      <Folder Include="Assets\TextMesh Pro\Resources\Style Sheets" />
      <Folder Include="Assets\TextMesh Pro\Fonts" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
-     <Folder Include="Assets\ScriptableObjects" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
@@ -771,6 +776,12 @@
      </Reference>
      <Reference Include="Unity.EditorCoroutines.Editor">
      <HintPath>C:\Users\ayrto\MazeAlgorithmDTT\Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="com.unity.cinemachine.editor">
+     <HintPath>C:\Users\ayrto\MazeAlgorithmDTT\Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Cinemachine">
+     <HintPath>C:\Users\ayrto\MazeAlgorithmDTT\Library\ScriptAssemblies\Cinemachine.dll</HintPath>
      </Reference>
   </ItemGroup>
   <ItemGroup>

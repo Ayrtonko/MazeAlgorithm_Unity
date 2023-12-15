@@ -7,50 +7,51 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
+    
+    [SerializeField] private MazeData mazeData;
+    [SerializeField] private GameObject userInterface;
+    [SerializeField] private MazeController mazeController;
+    [SerializeField] private CameraController cameraController;
+    private UIControllerLogic userInterfaceLogic;
+    
+    //UI objects   
     [SerializeField] private TMP_InputField inputMazeWidth;
     [SerializeField] private TMP_InputField inputMazeHeight;
     [SerializeField] private Button generateButton;
-    
-    [SerializeField] private MazeDataScriptableObject mazeData;
     void Start()
     {
+        userInterfaceLogic ??= new();
         generateButton.onClick.AddListener(GenerateButtonOnClick);
     }
-    
-    void Update()
+
+    private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            userInterfaceLogic.ToggleMenu(userInterface);
+        }
 
     }
 
+    //When the user presses Generate.
     public void GenerateButtonOnClick()
     {
-        mazeData.SetMazeHeight(InputFieldMazeHeightToInt());
-        mazeData.SetMazeWidth(InputFieldMazeWidthToInt());
+        int mazeHeight = userInterfaceLogic.InputFieldToInt(this.inputMazeHeight);
+        int mazeWidth = userInterfaceLogic.InputFieldToInt(this.inputMazeWidth);
+        mazeData.SetMazeHeight(mazeHeight);
+        mazeData.SetMazeWidth(mazeWidth);
+        if (userInterfaceLogic.CheckValidInput(this.inputMazeWidth, this.inputMazeHeight))
+        {
+            userInterfaceLogic.HideMenu(userInterface);
+            mazeController.GenerateNewMaze();
+            StartCoroutine(DelayedCameraPosition());
+        }
     }
 
-    public int InputFieldMazeWidthToInt()
+    IEnumerator DelayedCameraPosition()
     {
-        try
-        {
-            return int.Parse(inputMazeWidth.text);
-        }
-        catch (Exception e)
-        {
-            Debug.Log("SetInputMazeWidth Error, " + e);
-        }
-        return 0;
+        yield return new WaitForSeconds(0.1f);
+        cameraController.SetCameraPosition();
     }
     
-    public int InputFieldMazeHeightToInt()
-    {
-        try
-        { 
-            return int.Parse(inputMazeHeight.text);
-        }
-        catch (Exception e)
-        {
-            Debug.Log("SetInputMazeHeight Error, " + e);
-        }
-        return 0;
-    }
 }
