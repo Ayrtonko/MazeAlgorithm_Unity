@@ -1,0 +1,2 @@
+C:\Users\ayrto\MazeAlgorithmDTT\obj\Debug\Assembly-CSharp.csproj.AssemblyReference.cache
+C:\Users\ayrto\MazeAlgorithmDTT\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
