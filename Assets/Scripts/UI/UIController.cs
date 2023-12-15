@@ -1,20 +1,20 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    
-    [SerializeField] private MazeData mazeData;
+    [Header("UI Elements")]
     [SerializeField] private GameObject userInterface;
+    [SerializeField] private TMP_InputField inputMazeGridWidth;
+    [SerializeField] private TMP_InputField inputMazeGridHeight;
+    [SerializeField] private Button generateButton;
+    
+    [Header("Associations")]
     [SerializeField] private MazeController mazeController;
     [SerializeField] private CameraController cameraController;
-
-    //UI objects   
-    [SerializeField] private TMP_InputField inputMazeWidth;
-    [SerializeField] private TMP_InputField inputMazeHeight;
-    [SerializeField] private Button generateButton;
     void Start()
     {
         generateButton.onClick.AddListener(GenerateButtonOnClick);
@@ -32,12 +32,12 @@ public class UIController : MonoBehaviour
     //When the user presses generate.
     public void GenerateButtonOnClick()
     {
-        int mazeHeight = InputFieldToInt(this.inputMazeHeight);
-        int mazeWidth = InputFieldToInt(this.inputMazeWidth);
-        mazeData.SetMazeHeight(mazeHeight);
-        mazeData.SetMazeWidth(mazeWidth);
+        int mazeHeight = InputFieldToInt(this.inputMazeGridHeight);
+        int mazeWidth = InputFieldToInt(this.inputMazeGridWidth);
+        mazeController.mazeData.SetMazeHeight(mazeHeight);
+        mazeController.mazeData.SetMazeWidth(mazeWidth);
         
-        if (CheckValidInput(this.inputMazeWidth, this.inputMazeHeight))
+        if (CheckValidInput(this.inputMazeGridWidth, this.inputMazeGridHeight))
         {
             mazeController.GenerateNewMaze();
             HideMenu(userInterface);
@@ -67,21 +67,21 @@ public class UIController : MonoBehaviour
         return true;
     }
 
-    public void ToggleMenu(GameObject userInterface)
+    public void ToggleMenu(GameObject ui)
     {
-        bool menuIsActive = userInterface.activeSelf;
+        bool menuIsActive = ui.activeSelf;
         if (menuIsActive)
         {
-            userInterface.SetActive(false);
+            ui.SetActive(false);
         }
         else
         {
-            userInterface.SetActive(true);
+            ui.SetActive(true);
         }
     }
-    public void HideMenu(GameObject userInterface)
+    public void HideMenu(GameObject ui)
     {
-        userInterface.SetActive(false);
+        ui.SetActive(false);
     }
 
     public int InputFieldToInt(TMP_InputField input)

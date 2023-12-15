@@ -307,13 +307,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a21a8fa0145bcd64dba1c8c8b4de47ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mazeData: {fileID: 11400000, guid: 985fb7b52dc7fca4aaee73702789a750, type: 2}
   userInterface: {fileID: 1343282434}
+  inputMazeGridWidth: {fileID: 1056221685}
+  inputMazeGridHeight: {fileID: 744364356}
+  generateButton: {fileID: 1170215615}
   mazeController: {fileID: 573589396}
   cameraController: {fileID: 1437315575}
-  inputMazeWidth: {fileID: 1056221685}
-  inputMazeHeight: {fileID: 744364356}
-  generateButton: {fileID: 1170215615}
 --- !u!1 &368907416
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,6 +401,7 @@ MonoBehaviour:
   parentMazeCell: {fileID: 368907416}
   mazeCellPrefab: {fileID: 1310948280997665267, guid: 3319bd746a0424941912800df4f1dc05, type: 3}
   mazeData: {fileID: 11400000, guid: 985fb7b52dc7fca4aaee73702789a750, type: 2}
+  mazeAlgorithmBinaryTree: {fileID: 11400000, guid: 3889790e4b00f4845b66420b348433b4, type: 2}
 --- !u!1 &584594392
 GameObject:
   m_ObjectHideFlags: 0

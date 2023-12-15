@@ -3,17 +3,17 @@ using UnityEngine;
 [CreateAssetMenu]
 public class MazeData : ScriptableObject
 {
-    public static int mazeWidth;
-    public static int mazeHeight;
-    public static float mazeCellSize;
+    private int mazeGridWidth;
+    private int mazeGridHeight;
+    private float mazeCellSize;
     public void SetMazeWidth(int input)
     {
-        mazeWidth = input;
+        mazeGridWidth = input;
     }
     
     public void SetMazeHeight(int input)
     {
-        mazeHeight = input;
+        mazeGridHeight = input;
     }
 
     public void SetMazeCellSize(GameObject mazeCell)
@@ -23,12 +23,12 @@ public class MazeData : ScriptableObject
 
     public int GetMazeWidth()
     {
-        return mazeWidth;
+        return mazeGridWidth;
     }
     
     public int GetMazeHeight()
     {
-        return mazeHeight;
+        return mazeGridHeight;
     }
     
     public float GetMazeCellSize()

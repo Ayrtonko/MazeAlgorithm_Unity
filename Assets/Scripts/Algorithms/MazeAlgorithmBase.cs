@@ -7,10 +7,10 @@ public abstract class MazeAlgorithmBase : ScriptableObject
 
     public void DeleteNorthMazeWall(MazeCell[,] mazeGrid, int x, int y)
     {
-        mazeGrid[x, y].northWall.SetActive(false);
+        mazeGrid[x, y].GetNorthWall().SetActive(false);
         try
         {
-            mazeGrid[x, y + 1].southWall.SetActive(false);
+            mazeGrid[x, y + 1].GetSouthWall().SetActive(false);
         }
         catch (Exception e)
         {
@@ -20,10 +20,10 @@ public abstract class MazeAlgorithmBase : ScriptableObject
 
     public void DeleteEastMazeWall(MazeCell[,] mazeGrid, int x, int y)
     {
-        mazeGrid[x, y].eastWall.SetActive(false);
+        mazeGrid[x, y].GetEastWall().SetActive(false);
         try
         {
-            mazeGrid[x + 1, y].westWall.SetActive(false);
+            mazeGrid[x + 1, y].GetWestWall().SetActive(false);
         }
         catch (Exception e)
         {
@@ -33,10 +33,10 @@ public abstract class MazeAlgorithmBase : ScriptableObject
 
     public void DeleteSouthMazeWall(MazeCell[,] mazeGrid, int x, int y)
     {
-        mazeGrid[x, y].southWall.SetActive(false);
+        mazeGrid[x, y].GetSouthWall().SetActive(false);
         try
         {
-            mazeGrid[x, y - 1].northWall.SetActive(false);
+            mazeGrid[x, y - 1].GetNorthWall().SetActive(false);
         }
         catch (Exception e)
         {
@@ -46,10 +46,10 @@ public abstract class MazeAlgorithmBase : ScriptableObject
 
     public void DeleteWestMazeWall(MazeCell[,] mazeGrid, int x, int y)
     {
-        mazeGrid[x, y].westWall.SetActive(false);
+        mazeGrid[x, y].GetWestWall().SetActive(false);
         try
         {
-            mazeGrid[x - 1, y].eastWall.SetActive(false);
+            mazeGrid[x - 1, y].GetEastWall().SetActive(false);
         }
         catch (Exception e)
         {

@@ -2,27 +2,30 @@ using UnityEngine;
 
 public class MazeController : MonoBehaviour
 {
+    [Header("Maze grid cell container")]
     [SerializeField] private GameObject parentMazeCell;
+    
+    [Header("Prefabs")]
     [SerializeField] private GameObject mazeCellPrefab;
-    [SerializeField] private MazeData mazeData;
+    
+    
+    
+    [Header("Associations")]
+    [SerializeField] public MazeData mazeData;
     private MazeCell[,] mazeGrid;
-
-    //Algorithms
-    private BinaryTree binaryTree;
+    
+    [Header("Algorithms")]
+    [SerializeField] private MazeAlgorithmBinaryTree mazeAlgorithmBinaryTree;
     private MazeAlgorithmBase selectedAlgorithm;
 
 
 
     void Start()
     {
-        InitializeAlgorithms();
-        this.selectedAlgorithm = binaryTree;
+        this.selectedAlgorithm = mazeAlgorithmBinaryTree;
     }
 
-    void InitializeAlgorithms()
-    {
-        binaryTree ??= ScriptableObject.CreateInstance<BinaryTree>();
-    }
+
 
     //This method starts the generation in chronological order.
     public void GenerateNewMaze()

@@ -2,7 +2,8 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class BinaryTree : MazeAlgorithmBase
+[CreateAssetMenu]
+public class MazeAlgorithmBinaryTree : MazeAlgorithmBase
 {
     //The Binary Tree algorithm : for every cell in the grid, randomly carve a path either north, or west.
     public override void ApplyAlgorithm(MazeCell[,] mazeGrid)
