@@ -42,15 +42,12 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Maze\MazeController.cs" />
+     <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\Maze\MazeData.cs" />
      <Compile Include="Assets\Scripts\UI\UIController.cs" />
-     <Compile Include="Assets\Scripts\Maze\MazeCell.cs" />
      <Compile Include="Assets\Scripts\Algorithms\MazeAlgorithmBase.cs" />
      <Compile Include="Assets\Scripts\Algorithms\BinaryTree.cs" />
-     <Compile Include="Assets\Scripts\Algorithms\DepthFirstSearch.cs" />
-     <Compile Include="Assets\Scripts\Maze\MazeGenerator.cs" />
-     <Compile Include="Assets\Scripts\UI\UIControllerLogic.cs" />
-     <Compile Include="Assets\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\Maze\MazeCell.cs" />
      <Folder Include="Assets" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
@@ -711,8 +708,14 @@
      <Reference Include="Unity.VisualScripting.Flow.Editor">
      <HintPath>C:\Users\ayrto\MazeAlgorithmDTT\Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Cinemachine">
+     <HintPath>C:\Users\ayrto\MazeAlgorithmDTT\Library\ScriptAssemblies\Cinemachine.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.VSCode.Editor">
      <HintPath>C:\Users\ayrto\MazeAlgorithmDTT\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="com.unity.cinemachine.editor">
+     <HintPath>C:\Users\ayrto\MazeAlgorithmDTT\Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualScripting.Shared.Editor">
      <HintPath>C:\Users\ayrto\MazeAlgorithmDTT\Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
@@ -776,12 +779,6 @@
      </Reference>
      <Reference Include="Unity.EditorCoroutines.Editor">
      <HintPath>C:\Users\ayrto\MazeAlgorithmDTT\Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="com.unity.cinemachine.editor">
-     <HintPath>C:\Users\ayrto\MazeAlgorithmDTT\Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Cinemachine">
-     <HintPath>C:\Users\ayrto\MazeAlgorithmDTT\Library\ScriptAssemblies\Cinemachine.dll</HintPath>
      </Reference>
   </ItemGroup>
   <ItemGroup>

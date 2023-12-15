@@ -400,7 +400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentMazeCell: {fileID: 368907416}
-  myMazeCell: {fileID: 1310948280997665267, guid: 3319bd746a0424941912800df4f1dc05, type: 3}
+  mazeCellPrefab: {fileID: 1310948280997665267, guid: 3319bd746a0424941912800df4f1dc05, type: 3}
   mazeData: {fileID: 11400000, guid: 985fb7b52dc7fca4aaee73702789a750, type: 2}
 --- !u!1 &584594392
 GameObject:
