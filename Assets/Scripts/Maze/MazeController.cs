@@ -15,7 +15,7 @@ public class MazeController : MonoBehaviour
     private MazeCell[,] mazeGrid;
 
     //Algorithms
-   // private MazeAlgorithmBinaryTree mazeAlgorithmBinaryTree;
+    private MazeAlgorithmBinaryTree mazeAlgorithmBinaryTree;
     private MazeAlgorithmDepthFirstSearch mazeAlgorithmDepthFirstSearch;
     private MazeAlgorithmBase selectedAlgorithm;
 
@@ -23,7 +23,7 @@ public class MazeController : MonoBehaviour
     void Start()
     {
         InitiliazeAlgorithms();
-        ChooseAlgorithm();
+        SetDefaultAlgorithm();
     }
 
 
@@ -84,16 +84,26 @@ public class MazeController : MonoBehaviour
         }
     }
 
-    private void ChooseAlgorithm()
+    private void SetDefaultAlgorithm()
     {
         this.selectedAlgorithm = mazeAlgorithmDepthFirstSearch;
         Debug.Log("algorithm has been selected");
     }
 
+    public void SetSelectedAlgorithmBinaryTree()
+    {
+        this.selectedAlgorithm = mazeAlgorithmBinaryTree;
+    }
+    
+    public void SetSelectedAlgorithmDepthFirstSearch()
+    {
+        this.selectedAlgorithm = mazeAlgorithmDepthFirstSearch;
+    }
+
     private void InitiliazeAlgorithms()
     {
         mazeAlgorithmDepthFirstSearch ??= parentMazeCell.AddComponent<MazeAlgorithmDepthFirstSearch>();
-        //mazeAlgorithmBinaryTree ??= parentMazeCell.AddComponent<MazeAlgorithmBinaryTree>();
+        mazeAlgorithmBinaryTree ??= parentMazeCell.AddComponent<MazeAlgorithmBinaryTree>();
         Debug.Log("algorithm has initialized");
     }
 }

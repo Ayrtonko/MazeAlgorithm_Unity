@@ -12,6 +12,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private TMP_InputField inputMazeGridWidth;
     [SerializeField] private TMP_InputField inputMazeGridHeight;
     [SerializeField] private Button generateButton;
+    [SerializeField] private Button BinaryTreeButton;
+    [SerializeField] private Button DepthFirstSearchButton;
     
     [Header("Associations")]
     [SerializeField] private MazeController mazeController;
@@ -19,6 +21,9 @@ public class UIController : MonoBehaviour
     void Start()
     {
         generateButton.onClick.AddListener(GenerateButtonOnClick);
+        BinaryTreeButton.onClick.AddListener(OnClickBinaryTreeButton);
+        DepthFirstSearchButton.onClick.AddListener(OnClickDepthFirstSearchButton);
+
     }
 
     private void Update()
@@ -99,6 +104,15 @@ public class UIController : MonoBehaviour
         return 0;
     }
 
+    public void OnClickBinaryTreeButton()
+    {
+        mazeController.SetSelectedAlgorithmBinaryTree();
+    }
+
+    public void OnClickDepthFirstSearchButton()
+    {
+        mazeController.SetSelectedAlgorithmDepthFirstSearch();
+    }
 
     
 }
