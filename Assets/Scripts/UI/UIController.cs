@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -30,16 +31,17 @@ public class UIController : MonoBehaviour
     }
 
     //When the user presses generate.
-    public void GenerateButtonOnClick()
+    public async void GenerateButtonOnClick()
     {
+        //Get the grid dimensions from the user input and set them to MazeData.
         int mazeHeight = InputFieldToInt(this.inputMazeGridHeight);
         int mazeWidth = InputFieldToInt(this.inputMazeGridWidth);
-        mazeController.mazeData.SetMazeHeight(mazeHeight);
-        mazeController.mazeData.SetMazeWidth(mazeWidth);
-        
+        mazeController.mazeData.SetMazeProps(mazeWidth, mazeHeight);
+
+        //Only generate the maze when user input is valid
         if (CheckValidInput(this.inputMazeGridWidth, this.inputMazeGridHeight))
         {
-            mazeController.GenerateNewMaze();
+            await mazeController.GenerateNewMaze();
             HideMenu(userInterface);
             cameraController.SetCameraPosition();
             StartCoroutine(cameraController.SetCameraPositionDelayed());

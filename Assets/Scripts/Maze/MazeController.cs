@@ -1,50 +1,55 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class MazeController : MonoBehaviour
 {
-    [Header("Maze grid cell container")]
-    [SerializeField] private GameObject parentMazeCell;
-    
-    [Header("Prefabs")]
-    [SerializeField] private GameObject mazeCellPrefab;
-    
-    
-    
-    [Header("Associations")]
-    [SerializeField] public MazeData mazeData;
-    private MazeCell[,] mazeGrid;
-    
-    [Header("Algorithms")]
-    [SerializeField] private MazeAlgorithmBinaryTree mazeAlgorithmBinaryTree;
-    private MazeAlgorithmBase selectedAlgorithm;
+    [Header("Maze grid cell container")] [SerializeField]
+    private GameObject parentMazeCell;
 
+    [Header("Prefabs")] [SerializeField] private GameObject mazeCellPrefab;
+
+
+    [Header("Associations")] [SerializeField]
+    public MazeData mazeData;
+
+    private MazeCell[,] mazeGrid;
+
+    //Algorithms
+   // private MazeAlgorithmBinaryTree mazeAlgorithmBinaryTree;
+    private MazeAlgorithmDepthFirstSearch mazeAlgorithmDepthFirstSearch;
+    private MazeAlgorithmBase selectedAlgorithm;
 
 
     void Start()
     {
-        this.selectedAlgorithm = mazeAlgorithmBinaryTree;
+        InitiliazeAlgorithms();
+        ChooseAlgorithm();
     }
-
 
 
     //This method starts the generation in chronological order.
-    public void GenerateNewMaze()
+    public async Task GenerateNewMaze()
     {
+       
+        Debug.Log("started to generate a new maze");
         //Keeping track of the maze cell size is necessary to know the distance between maze cells
         mazeData.SetMazeCellSize(mazeCellPrefab);
-        
+
         //Delete the current grid if one already exists
         if (mazeGrid != null)
         {
-            DeleteCurrentMazeGrid(parentMazeCell);
+            await DeleteCurrentMazeGrid(parentMazeCell);
         }
+
+
         InstantiateMazeCellObjects(mazeData, mazeCellPrefab, parentMazeCell);
-        selectedAlgorithm.ApplyAlgorithm(mazeGrid);
+        StartCoroutine(selectedAlgorithm.ApplyAlgorithm(mazeGrid));
     }
 
-   //Instantiates the maze cell game objects into the scene.
+    //Instantiates the maze cell game objects into the scene.
     public void InstantiateMazeCellObjects(MazeData mazeData, GameObject mazeCell, GameObject parentMazeCell)
     {
+        Debug.Log("instantiating maze cell objects");
         //Retrieve maze dimensions and maze cells spacing from MazeData.
         int gridWidth = mazeData.GetMazeWidth();
         int gridHeight = mazeData.GetMazeHeight();
@@ -64,16 +69,31 @@ public class MazeController : MonoBehaviour
                 Vector3 position = new Vector3(x * mazeCellSize, y * mazeCellSize, 0);
                 GameObject mazeCellObj = Instantiate(mazeCell, position, rotation);
                 mazeGrid[x, y] = mazeCellObj.GetComponent<MazeCell>();
+                mazeGrid[x, y].SetPos(x, y);
                 mazeCellObj.transform.SetParent(parentMazeCell.transform);
             }
         }
     }
-    
-    public void DeleteCurrentMazeGrid(GameObject parentMazeCell)
+
+    public async Task DeleteCurrentMazeGrid(GameObject parentMazeCell)
     {
+        Debug.Log("deleting children from parentcell");
         foreach (Transform child in parentMazeCell.transform)
         {
             Destroy(child.gameObject);
         }
+    }
+
+    private void ChooseAlgorithm()
+    {
+        this.selectedAlgorithm = mazeAlgorithmDepthFirstSearch;
+        Debug.Log("algorithm has been selected");
+    }
+
+    private void InitiliazeAlgorithms()
+    {
+        mazeAlgorithmDepthFirstSearch ??= parentMazeCell.AddComponent<MazeAlgorithmDepthFirstSearch>();
+        //mazeAlgorithmBinaryTree ??= parentMazeCell.AddComponent<MazeAlgorithmBinaryTree>();
+        Debug.Log("algorithm has initialized");
     }
 }

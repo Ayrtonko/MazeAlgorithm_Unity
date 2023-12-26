@@ -400,8 +400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentMazeCell: {fileID: 368907416}
   mazeCellPrefab: {fileID: 1310948280997665267, guid: 3319bd746a0424941912800df4f1dc05, type: 3}
-  mazeData: {fileID: 11400000, guid: 985fb7b52dc7fca4aaee73702789a750, type: 2}
-  mazeAlgorithmBinaryTree: {fileID: 11400000, guid: 3889790e4b00f4845b66420b348433b4, type: 2}
+  mazeData: {fileID: 11400000, guid: c8e4b81cb0c130e44ae59f76d5edb7e0, type: 2}
 --- !u!1 &584594392
 GameObject:
   m_ObjectHideFlags: 0

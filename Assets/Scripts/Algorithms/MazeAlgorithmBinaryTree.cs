@@ -1,18 +1,17 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
-
-[CreateAssetMenu]
 public class MazeAlgorithmBinaryTree : MazeAlgorithmBase
 {
     //The Binary Tree algorithm : for every cell in the grid, randomly carve a path either north, or west.
-    public override void ApplyAlgorithm(MazeCell[,] mazeGrid)
+    public override IEnumerator ApplyAlgorithm(MazeCell[,] mazeGrid)
     {
+        Debug.Log("executing binary tree");
         //Get the number of rows and columns in the maze grid.
         int rows = mazeGrid.GetLength(0);
         int columns = mazeGrid.GetLength(1);
-
-
+        
         //Iterate through each cell in the grid.
         for (int x = 0; x < rows; x++)
         {
@@ -39,6 +38,8 @@ public class MazeAlgorithmBinaryTree : MazeAlgorithmBase
                 {
                     DeleteNorthMazeWall(mazeGrid, x, y);
                 }
+
+                yield return new WaitForSeconds(MazeData.speed);
             }
         }
     }
