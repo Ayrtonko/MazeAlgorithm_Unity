@@ -2,20 +2,16 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
+
 public class MazeAlgorithmBinaryTree : MazeAlgorithmBase
 {
     //The Binary Tree algorithm : for every cell in the grid, randomly carve a path either north, or west.
     public override IEnumerator ApplyAlgorithm(MazeCell[,] mazeGrid)
     {
-        Debug.Log("executing binary tree");
-        //Get the number of rows and columns in the maze grid.
-        int rows = mazeGrid.GetLength(0);
-        int columns = mazeGrid.GetLength(1);
-        
         //Iterate through each cell in the grid.
-        for (int x = 0; x < rows; x++)
+        for (int x = 0; x < MazeData.mazeGridWidth; x++)
         {
-            for (int y = 0; y < columns; y++)
+            for (int y = 0; y < MazeData.mazeGridHeight; y++)
             {
                 // Randomly choose between 0 and 1, 0 = north and 1 = west.
                 int number = Random.Range(0, 2);
@@ -38,7 +34,6 @@ public class MazeAlgorithmBinaryTree : MazeAlgorithmBase
                 {
                     DeleteNorthMazeWall(mazeGrid, x, y);
                 }
-
                 yield return new WaitForSeconds(MazeData.speed);
             }
         }
@@ -46,35 +41,19 @@ public class MazeAlgorithmBinaryTree : MazeAlgorithmBase
 
     bool HasNorthNeighbour(MazeCell[,] mazeGrid, int x, int y)
     {
-        try
+        if (CheckWithinGrid(x, y + 1))
         {
-            if (mazeGrid[x, y + 1] != null)
-            {
-                return true;
-            }
+            return true;
         }
-        catch (Exception e)
-        {
-            Debug.Log(e);
-        }
-
         return false;
     }
 
     bool HasWestNeighbour(MazeCell[,] mazeGrid, int x, int y)
     {
-        try
+        if (CheckWithinGrid(x - 1, y))
         {
-            if (mazeGrid[x - 1, y] != null)
-            {
-                return true;
-            }
+            return true;
         }
-        catch (Exception e)
-        {
-            Debug.Log(e);
-        }
-
         return false;
     }
 }

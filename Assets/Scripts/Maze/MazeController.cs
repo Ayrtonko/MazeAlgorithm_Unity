@@ -30,8 +30,7 @@ public class MazeController : MonoBehaviour
     //This method starts the generation in chronological order.
     public async Task GenerateNewMaze()
     {
-       
-        Debug.Log("started to generate a new maze");
+        
         //Keeping track of the maze cell size is necessary to know the distance between maze cells
         mazeData.SetMazeCellSize(mazeCellPrefab);
 
@@ -40,8 +39,7 @@ public class MazeController : MonoBehaviour
         {
             await DeleteCurrentMazeGrid(parentMazeCell);
         }
-
-
+        
         InstantiateMazeCellObjects(mazeData, mazeCellPrefab, parentMazeCell);
         StartCoroutine(selectedAlgorithm.ApplyAlgorithm(mazeGrid));
     }
@@ -77,7 +75,6 @@ public class MazeController : MonoBehaviour
 
     public async Task DeleteCurrentMazeGrid(GameObject parentMazeCell)
     {
-        Debug.Log("deleting children from parentcell");
         foreach (Transform child in parentMazeCell.transform)
         {
             Destroy(child.gameObject);
@@ -87,7 +84,7 @@ public class MazeController : MonoBehaviour
     private void SetDefaultAlgorithm()
     {
         this.selectedAlgorithm = mazeAlgorithmDepthFirstSearch;
-        Debug.Log("algorithm has been selected");
+
     }
 
     public void SetSelectedAlgorithmBinaryTree()
@@ -104,6 +101,5 @@ public class MazeController : MonoBehaviour
     {
         mazeAlgorithmDepthFirstSearch ??= parentMazeCell.AddComponent<MazeAlgorithmDepthFirstSearch>();
         mazeAlgorithmBinaryTree ??= parentMazeCell.AddComponent<MazeAlgorithmBinaryTree>();
-        Debug.Log("algorithm has initialized");
     }
 }

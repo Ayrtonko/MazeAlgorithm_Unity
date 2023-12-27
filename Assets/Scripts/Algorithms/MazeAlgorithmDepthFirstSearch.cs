@@ -13,58 +13,64 @@ public class MazeAlgorithmDepthFirstSearch : MazeAlgorithmBase
     public override IEnumerator ApplyAlgorithm(MazeCell[,] mazeGrid)
     {
         visitedCellsCount = 0;
-        Debug.Log("executing dfs algorithm");
+        // Add visited cells to this list, the last cell is the selected cell.
         List<MazeCell> listMazeCells = new List<MazeCell>();
+
+        // MazeGrid[0,0] is the start cell
         mazeGrid[0, 0].SetVisitedTrue();
         listMazeCells.Add(mazeGrid[0, 0]);
 
+        // Loop until all maze cells are visited
         while (visitedCellsCount < MazeData.totalMazeCells - 1)
         {
-            Debug.Log("visited cells: " + visitedCellsCount);
-            var neighbours =
+            // Add all neighbours of the current cell to a list
+            List<MazeCell> neighbours =
                 GetCellNeighbours(mazeGrid, listMazeCells.Last().GetPosX(), listMazeCells.Last().GetPosY());
+
+            // Generate a random number to select a random neighbor
             randomNumber = Random.Range(0, neighbours.Count);
-            
+
             if (neighbours.Count > 0)
             {
                 listMazeCells.Add(neighbours[randomNumber]);
                 neighbours[randomNumber].SetVisitedTrue();
+
+                // Delete the wall between the current and chosen neighbour cell
                 DeleteWall(mazeGrid, listMazeCells);
                 visitedCellsCount++;
+
                 yield return new WaitForSeconds(MazeData.speed);
             }
 
-            if (neighbours.Count < 1 && listMazeCells.Count > 2)
+            // If there are no available neighbors, make the previous selected cell the current selected cell.
+            if (neighbours.Count < 1 && listMazeCells.Count > 1)
             {
                 listMazeCells.RemoveAt(listMazeCells.Count - 1);
             }
-            
         }
-        
     }
 
     private void DeleteWall(MazeCell[,] mazeGrid, List<MazeCell> list)
     {
-        Debug.Log("Deleting a wall");
-        //UP
+        // North
         if (list[^1].GetPosY() > list[^2].GetPosY() && list[^1].GetPosX() == list[^2].GetPosX())
         {
             DeleteNorthMazeWall(mazeGrid, list[^2].GetPosX(), list[^2].GetPosY());
         }
 
-        //Down
+        // South
         if (list[^1].GetPosY() < list[^2].GetPosY() && list[^1].GetPosX() == list[^2].GetPosX())
         {
             DeleteSouthMazeWall(mazeGrid, list[^2].GetPosX(), list[^2].GetPosY());
         }
 
-        // Right
+        // East
         if (list[^1].GetPosY() == list[^2].GetPosY() && list[^1].GetPosX() > list[^2].GetPosX())
         {
             DeleteEastMazeWall(mazeGrid, list[^2].GetPosX(), list[^2].GetPosY());
         }
 
-        // Left
+        // West
         if (list[^1].GetPosY() == list[^2].GetPosY() && list[^1].GetPosX() < list[^2].GetPosX())
         {
             DeleteWestMazeWall(mazeGrid, list[^2].GetPosX(), list[^2].GetPosY());
@@ -73,11 +79,7 @@ public class MazeAlgorithmDepthFirstSearch : MazeAlgorithmBase
 
     private List<MazeCell> GetCellNeighbours(MazeCell[,] mazeGrid, int x, int y)
     {
-        Debug.Log("retrieving neighbour cells");
-
         List<MazeCell> cells = new List<MazeCell>();
-        int rowsTotal = MazeData.mazeGridWidth;
-        int colsTotal = MazeData.mazeGridHeight;
 
         //Adjacent cell options
         int[] rowOptions = { 0, -1, 0, 1 };
@@ -85,15 +87,16 @@ public class MazeAlgorithmDepthFirstSearch : MazeAlgorithmBase
 
         for (int i = 0; i < 4; i++)
         {
-            int cellRow = mazeGrid[x, y].GetPosX() + rowOptions[i];
-            int cellCol = mazeGrid[x, y].GetPosY() + colOptions[i];
+            // the coordinates for the neighbouring cell
+            int posNeighbourX = mazeGrid[x, y].GetPosX() + rowOptions[i];
+            int posNeighbourY = mazeGrid[x, y].GetPosY() + colOptions[i];
 
-            // Check if the new coordinates are within the bounds of the array
-            if (cellRow >= 0 && cellRow < rowsTotal && cellCol >= 0 && cellCol < colsTotal)
+            // Check if the coordinates are within the grid
+            if (CheckWithinGrid(posNeighbourX, posNeighbourY))
             {
-                if (!mazeGrid[cellRow, cellCol].GetIsVisited())
+                if (!mazeGrid[posNeighbourX, posNeighbourY].GetIsVisited())
                 {
-                    cells.Add(mazeGrid[cellRow, cellCol]);
+                    cells.Add(mazeGrid[posNeighbourX, posNeighbourY]);
                 }
             }
         }

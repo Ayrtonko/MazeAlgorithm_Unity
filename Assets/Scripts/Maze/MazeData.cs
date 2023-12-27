@@ -7,6 +7,8 @@ public class MazeData : ScriptableObject
     public static int mazeGridHeight;
     public static int totalMazeCells;
     private float mazeCellSize;
+    
+    
     public static float speed = 0.02f;
     public void SetMazeProps(int width, int height)
     {
