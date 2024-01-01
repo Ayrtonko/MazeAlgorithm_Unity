@@ -50,6 +50,7 @@ public class UIController : MonoBehaviour
             HideMenu(userInterface);
             cameraController.SetCameraPosition();
             StartCoroutine(cameraController.SetCameraPositionDelayed());
+            mazeController.ApplyAlgorithm();
         }
     }
     

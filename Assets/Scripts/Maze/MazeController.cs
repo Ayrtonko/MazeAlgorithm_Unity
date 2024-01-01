@@ -41,6 +41,10 @@ public class MazeController : MonoBehaviour
         }
         
         InstantiateMazeCellObjects(mazeData, mazeCellPrefab, parentMazeCell);
+    }
+
+    public void ApplyAlgorithm()
+    {
         StartCoroutine(selectedAlgorithm.ApplyAlgorithm(mazeGrid));
     }
 
