@@ -40,6 +40,8 @@ public class MazeAlgorithmDepthFirstSearch : MazeAlgorithmBase
                 visitedCellsCount++;
 
                 yield return new WaitForSeconds(MazeData.speed);
+                
+
             }
 
             // If there are no available neighbors, make the previous selected cell the current selected cell.

@@ -13,39 +13,35 @@ public class MazeController : MonoBehaviour
     public MazeData mazeData;
 
     private MazeCell[,] mazeGrid;
-
-    //Algorithms
-    private MazeAlgorithmBinaryTree mazeAlgorithmBinaryTree;
-    private MazeAlgorithmDepthFirstSearch mazeAlgorithmDepthFirstSearch;
-    private MazeAlgorithmBase selectedAlgorithm;
+    
 
 
     void Start()
     {
-        InitiliazeAlgorithms();
-        SetDefaultAlgorithm();
     }
 
+    public GameObject GetParentMacecell()
+    {
+        return this.parentMazeCell;
+    }
 
     //This method starts the generation in chronological order.
-    public async Task GenerateNewMaze()
+    public void GenerateNewMaze()
     {
-        
         //Keeping track of the maze cell size is necessary to know the distance between maze cells
         mazeData.SetMazeCellSize(mazeCellPrefab);
-
-        //Delete the current grid if one already exists
-        if (mazeGrid != null)
-        {
-            await DeleteCurrentMazeGrid(parentMazeCell);
-        }
-        
         InstantiateMazeCellObjects(mazeData, mazeCellPrefab, parentMazeCell);
     }
 
     public void ApplyAlgorithm()
     {
-        StartCoroutine(selectedAlgorithm.ApplyAlgorithm(mazeGrid));
+        Debug.Log("start routine");
+        StartCoroutine(MazeData.selectedAlgorithm.ApplyAlgorithm(mazeGrid));
+    }
+
+    public void StopAlgorithm()
+    {
+        StopAllCoroutines();
     }
 
     //Instantiates the maze cell game objects into the scene.
@@ -70,6 +66,7 @@ public class MazeController : MonoBehaviour
                 // Calculate the position for the current MazeCell based on grid coordinates.
                 Vector3 position = new Vector3(x * mazeCellSize, y * mazeCellSize, 0);
                 GameObject mazeCellObj = Instantiate(mazeCell, position, rotation);
+                mazeCellObj.name = $"{x} , {y} ";
                 mazeGrid[x, y] = mazeCellObj.GetComponent<MazeCell>();
                 mazeGrid[x, y].SetPos(x, y);
                 mazeCellObj.transform.SetParent(parentMazeCell.transform);
@@ -77,33 +74,12 @@ public class MazeController : MonoBehaviour
         }
     }
 
-    public async Task DeleteCurrentMazeGrid(GameObject parentMazeCell)
+    public void DeleteCurrentMazeGrid(GameObject parentMazeCell)
     {
         foreach (Transform child in parentMazeCell.transform)
         {
             Destroy(child.gameObject);
         }
     }
-
-    private void SetDefaultAlgorithm()
-    {
-        this.selectedAlgorithm = mazeAlgorithmDepthFirstSearch;
-
-    }
-
-    public void SetSelectedAlgorithmBinaryTree()
-    {
-        this.selectedAlgorithm = mazeAlgorithmBinaryTree;
-    }
     
-    public void SetSelectedAlgorithmDepthFirstSearch()
-    {
-        this.selectedAlgorithm = mazeAlgorithmDepthFirstSearch;
-    }
-
-    private void InitiliazeAlgorithms()
-    {
-        mazeAlgorithmDepthFirstSearch ??= parentMazeCell.AddComponent<MazeAlgorithmDepthFirstSearch>();
-        mazeAlgorithmBinaryTree ??= parentMazeCell.AddComponent<MazeAlgorithmBinaryTree>();
-    }
 }
